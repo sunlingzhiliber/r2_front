@@ -12,12 +12,19 @@
             <el-row>
               <el-col :span="16">
                 <span class="event-name">
-                  <span v-show="!input.isOptional" style="color:red">*</span
-                  >{{ input.name }}</span
-                >
+                  <span
+                    v-show="!input.isOptional"
+                    style="color:red"
+                  >*</span>{{ input.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
-                <FileUpload :input="input" :disabled="disabled"></FileUpload>
+              <el-col
+                :span="3"
+                :offset="2"
+              >
+                <FileUpload
+                  :input="input"
+                  :disabled="disabled"
+                ></FileUpload>
               </el-col>
             </el-row>
             <el-row>{{ input.description }}</el-row>
@@ -25,7 +32,10 @@
         </div>
       </div>
 
-      <div class="group" v-show="service.behavior.parameters">
+      <div
+        class="group"
+        v-show="service.behavior.parameters"
+      >
         <el-row class="title">params</el-row>
         <div class="items">
           <el-row
@@ -37,7 +47,10 @@
               <el-col :span="16">
                 <span class="event-name"> {{ parameter.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
+              <el-col
+                :span="3"
+                :offset="2"
+              >
                 <el-tooltip
                   :content="parameter.tooltip"
                   placement="top"
@@ -68,7 +81,10 @@
               <el-col :span="16">
                 <span class="event-name"> {{ output.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
+              <el-col
+                :span="3"
+                :offset="2"
+              >
                 <div v-if="output.dataServiceId == undefined">null</div>
                 <el-button
                   v-else
@@ -87,6 +103,7 @@
 </template>
 
 <script>
+import config from "@/config";
 import InputParameter from "_com/behaviorUI/InputParameter";
 import FileUpload from "_com/behaviorUI/FileUpload";
 import RangeParameter from "_com/behaviorUI/RangeParameter";
@@ -97,7 +114,7 @@ export default {
   props: ["service", "disabled"],
   methods: {
     download(dataServiceId) {
-      window.open(`http://localhost:8081/data_service/fetch/${dataServiceId}`);
+      window.open(`${config.containerURL}/data_service/fetch/${dataServiceId}`);
     },
     typeMapping(type) {
       let vueType;

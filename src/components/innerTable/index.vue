@@ -26,11 +26,12 @@
 </template>
 
 <script>
+import config from "@/config";
 export default {
   props: ["behavior"],
   methods: {
     download(dataServiceId) {
-      window.open(`http://localhost:8081/data_service/fetch/${dataServiceId}`);
+      window.open(`${config.containerURL}/data_service/fetch/${dataServiceId}`);
     },
     configuration({ inputs, parameters, outputs }) {
       let arr = [];

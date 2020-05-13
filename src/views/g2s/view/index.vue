@@ -12,7 +12,10 @@
       </el-button>
     </div>
     <el-row>
-      <el-col :span="22" :offset="1">
+      <el-col
+        :span="22"
+        :offset="1"
+      >
         <el-row>
           <el-col :span="5">
             <el-card>
@@ -33,20 +36,32 @@
               </div>
 
               <el-collapse v-model="activeNamesLeft">
-                <el-collapse-item title="goals" name="1">
+                <el-collapse-item
+                  title="goals"
+                  name="1"
+                >
                   <div>{{ g2s.goals }}</div>
                 </el-collapse-item>
-                <el-collapse-item title="background" name="2">
+                <el-collapse-item
+                  title="background"
+                  name="2"
+                >
                   <div>{{ g2s.background }}</div>
                 </el-collapse-item>
               </el-collapse>
             </el-card>
           </el-col>
-          <el-col :span="18" :offset="1">
+          <el-col
+            :span="18"
+            :offset="1"
+          >
             <div class="rightContent">
               <el-card>
                 <el-collapse v-model="activeNamesRight">
-                  <el-collapse-item title="Context Define" name="1">
+                  <el-collapse-item
+                    title="Context Define"
+                    name="1"
+                  >
                     <el-tabs v-model="activeContext">
                       <el-tab-pane
                         label="Theme"
@@ -55,19 +70,38 @@
                       >
                         {{ g2s.contextDefine.theme }}
                       </el-tab-pane>
-                      <el-tab-pane label="Geographic Object" name="object">
+                      <el-tab-pane
+                        label="Geographic Object"
+                        name="object"
+                      >
                         {{ g2s.contextDefine.object }}
                       </el-tab-pane>
-                      <el-tab-pane label="Boundary" name="boundary">
+                      <el-tab-pane
+                        label="Boundary"
+                        name="boundary"
+                      >
                         {{ g2s.contextDefine.boundary }}
                       </el-tab-pane>
                     </el-tabs>
                   </el-collapse-item>
-                  <el-collapse-item title="Resource Collect" name="2">
+                  <el-collapse-item
+                    title="Resource Collect"
+                    name="2"
+                  >
                     <el-tabs v-model="activeResource">
-                      <el-tab-pane label="Data Services" name="data">
-                        <el-table :data="dataTable" style="width: 100%">
-                          <el-table-column prop="name" label="Name" width="180">
+                      <el-tab-pane
+                        label="Data Services"
+                        name="data"
+                      >
+                        <el-table
+                          :data="dataTable"
+                          style="width: 100%"
+                        >
+                          <el-table-column
+                            prop="name"
+                            label="Name"
+                            width="180"
+                          >
                           </el-table-column>
                           <el-table-column
                             prop="createTime"
@@ -98,9 +132,19 @@
                         </el-table>
                       </el-tab-pane>
 
-                      <el-tab-pane label="Data Process Services" name="process">
-                        <el-table :data="dataProcessTable" style="width: 100%">
-                          <el-table-column prop="name" label="Name" width="180">
+                      <el-tab-pane
+                        label="Data Process Services"
+                        name="process"
+                      >
+                        <el-table
+                          :data="dataProcessTable"
+                          style="width: 100%"
+                        >
+                          <el-table-column
+                            prop="name"
+                            label="Name"
+                            width="180"
+                          >
                           </el-table-column>
                           <el-table-column
                             prop="createTime"
@@ -143,9 +187,19 @@
                         </el-table>
                       </el-tab-pane>
 
-                      <el-tab-pane label="Model Services" name="model">
-                        <el-table :data="modelTable" style="width: 100%">
-                          <el-table-column prop="name" label="Name" width="180">
+                      <el-tab-pane
+                        label="Model Services"
+                        name="model"
+                      >
+                        <el-table
+                          :data="modelTable"
+                          style="width: 100%"
+                        >
+                          <el-table-column
+                            prop="name"
+                            label="Name"
+                            width="180"
+                          >
                           </el-table-column>
                           <el-table-column
                             prop="createTime"
@@ -201,7 +255,10 @@
 
               <el-card>
                 <el-tabs v-model="activeExpected">
-                  <el-tab-pane label="Service Instances" name="instance">
+                  <el-tab-pane
+                    label="Service Instances"
+                    name="instance"
+                  >
                     <InstanceCard
                       v-for="(instance, index) in instanceCard"
                       :key="index"
@@ -209,7 +266,10 @@
                     ></InstanceCard>
                   </el-tab-pane>
 
-                  <el-tab-pane label="Evaluation" name="evaluation">
+                  <el-tab-pane
+                    label="Evaluation"
+                    name="evaluation"
+                  >
                     <InstanceCard
                       v-for="(evaluation, index) in evaluationCard"
                       :key="index"
@@ -217,7 +277,10 @@
                     ></InstanceCard>
                   </el-tab-pane>
 
-                  <el-tab-pane label="Workflow" name="workflow">
+                  <el-tab-pane
+                    label="Workflow"
+                    name="workflow"
+                  >
                     <el-button
                       @click="fullScreen"
                       icon="el-icon-full-screen"
@@ -244,6 +307,7 @@ import workflow from "./components/workflow";
 const { mxGraph, mxClient, mxCodec, mxUtils } = mxgraph;
 import { get } from "@/axios";
 import InstanceCard from "_com/common/InstanceCard";
+import config from "@/config";
 export default {
   data() {
     return {
@@ -369,7 +433,7 @@ export default {
 
   methods: {
     download(row) {
-      window.open(`http://localhost:8081/data_service/fetch/${row.id}`);
+      window.open(`${config.containerURL}/data_service/fetch/${row.id}`);
     },
     view(row, type) {
       this.$router.push({

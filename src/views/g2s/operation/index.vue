@@ -16,7 +16,10 @@
       ref="steps"
     ></div>
 
-    <el-dialog title="上下文定义" :visible.sync="contextVisible">
+    <el-dialog
+      title="上下文定义"
+      :visible.sync="contextVisible"
+    >
       <el-form :model="contextDefine">
         <el-form-item label="主题名称">
           <el-input
@@ -37,13 +40,22 @@
           ></el-input>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="contextVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setContext()">确 定</el-button>
+        <el-button
+          type="primary"
+          @click="setContext()"
+        >确 定</el-button>
       </div>
     </el-dialog>
 
-    <el-dialog title="资源收集" :visible.sync="resourceCollectVisible">
+    <el-dialog
+      title="资源收集"
+      :visible.sync="resourceCollectVisible"
+    >
       <el-form :model="resourceCollect">
         <el-form-item label="数据资源">
           <el-select
@@ -81,23 +93,42 @@
           </el-select>
         </el-form-item>
       </el-form>
-      <div slot="footer" class="dialog-footer">
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="resourceCollectVisible = false">取 消</el-button>
-        <el-button type="primary" @click="setResourceCollect()"
-          >确 定</el-button
-        >
+        <el-button
+          type="primary"
+          @click="setResourceCollect()"
+        >确 定</el-button>
       </div>
     </el-dialog>
 
-    <el-dialog title="模拟验证" :visible.sync="evaluationVisible">
-      <el-tabs v-model="avtiveTab" @tab-click="handleTabClick">
-        <el-tab-pane label="管理" name="manage">{{
+    <el-dialog
+      title="模拟验证"
+      :visible.sync="evaluationVisible"
+    >
+      <el-tabs
+        v-model="avtiveTab"
+        @tab-click="handleTabClick"
+      >
+        <el-tab-pane
+          label="管理"
+          name="manage"
+        >{{
           evaluationServices
         }}</el-tab-pane>
-        <el-tab-pane label="创建" name="create">
+        <el-tab-pane
+          label="创建"
+          name="create"
+        >
           <el-row>
             <div>
-              <el-steps finish-status="success" :active="active">
+              <el-steps
+                finish-status="success"
+                :active="active"
+              >
                 <el-step title="基本信息"></el-step>
                 <el-step title="详情"></el-step>
                 <el-step title="行为绑定"></el-step>
@@ -106,9 +137,7 @@
 
             <div v-show="active == 0">
               name:<el-input v-model="evaluationService.name"></el-input>
-              description:<el-input
-                v-model="evaluationService.description"
-              ></el-input>
+              description:<el-input v-model="evaluationService.description"></el-input>
               tags:<el-select
                 v-model="evaluationService.tags"
                 multiple
@@ -118,9 +147,7 @@
                 default-first-option
               ></el-select>
               <br />
-              resourceUrl:<el-input
-                v-model="evaluationService.resourceUrl"
-              ></el-input>
+              resourceUrl:<el-input v-model="evaluationService.resourceUrl"></el-input>
             </div>
 
             <div v-show="active == 1">
@@ -136,10 +163,22 @@
                 clearable
                 placeholder="请选择"
               >
-                <el-option key="HTML" label="HTML" value="HTML"> </el-option>
-                <el-option key="JUPYTER" label="Jupter" value="JUPYTER">
+                <el-option
+                  key="HTML"
+                  label="HTML"
+                  value="HTML"
+                > </el-option>
+                <el-option
+                  key="JUPYTER"
+                  label="Jupter"
+                  value="JUPYTER"
+                >
                 </el-option>
-                <el-option key="RMARKDOWN" label="Rmarkdown" value="RMARKDOWN">
+                <el-option
+                  key="RMARKDOWN"
+                  label="Rmarkdown"
+                  value="RMARKDOWN"
+                >
                 </el-option>
               </el-select>
             </div>
@@ -151,10 +190,14 @@
               ></el-transfer>
             </div>
             <el-button @click="active--">back</el-button>
-            <el-button @click="active++" v-show="active < 2">next</el-button>
-            <el-button @click="createEvaluationService" v-show="active == 2"
-              >create</el-button
-            >
+            <el-button
+              @click="active++"
+              v-show="active < 2"
+            >next</el-button>
+            <el-button
+              @click="createEvaluationService"
+              v-show="active == 2"
+            >create</el-button>
           </el-row>
         </el-tab-pane>
       </el-tabs>
@@ -163,6 +206,7 @@
 </template>
 
 <script>
+import config from "@/config";
 import { get, put, post } from "@/axios";
 import echarts from "echarts";
 export default {
@@ -345,9 +389,7 @@ export default {
             break;
           case "Geographic simulation construction":
             {
-              window.open(
-                `http://localhost:8080/graph/index.html?id=${this.id}`
-              );
+              window.open(`${config.tomcatURL}/graph/index.html?id=${this.id}`);
             }
             break;
           case "Resource collection":
@@ -443,7 +485,7 @@ export default {
       this.getEvaluationServices();
       this.resourceCollectVisible = false;
       window.open(
-        `http://localhost:8080/evaluation/#/gist/${serviceId}`,
+        `${config.tomcatURL}/evaluation/#/gist/${serviceId}`,
         "_blank"
       );
     },

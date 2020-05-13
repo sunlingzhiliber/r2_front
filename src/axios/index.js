@@ -1,11 +1,16 @@
 import axios from "axios";
 import sf from "string-format";
-import { Loading } from "element-ui";
-import { ResError } from "@/lib/error/ResError";
+import {
+  Loading
+} from "element-ui";
+import {
+  ResError
+} from "@/lib/error/ResError";
 import store from "@/store";
 import router from "@/router";
+import config from "@/config";
 
-const baseRequestUrl = "/api";
+const baseRequestUrl = config.apiURL;
 
 const axiosInstance = axios.create({
   baseURL: baseRequestUrl,

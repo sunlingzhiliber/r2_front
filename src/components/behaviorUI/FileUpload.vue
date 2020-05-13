@@ -13,11 +13,15 @@
       :limit="1"
       :on-success="onSuccess"
     >
-      <el-button size="small" type="primary">点击上传</el-button>
+      <el-button
+        size="small"
+        type="primary"
+      >点击上传</el-button>
     </el-upload>
   </div>
 </template>
 <script>
+import config from "@/config";
 export default {
   props: {
     disabled: {
@@ -34,7 +38,7 @@ export default {
     },
     download() {
       window.open(
-        `http://localhost:8081/data_service/fetch/${this.input.dataServiceId}`
+        `${config.containerURL}/data_service/fetch/${this.input.dataServiceId}`
       );
     }
   }
