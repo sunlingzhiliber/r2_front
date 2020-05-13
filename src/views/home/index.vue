@@ -1,25 +1,21 @@
 <template>
   <div class="home">
+
     <div class="home-screen">
       <div class="bg"></div>
       <div class="mask"></div>
       <div class="content">
         <div>
-          <span class="title"
-            >Welcome to Reproducible Geographic Simulation Reserach</span
-          >
-          <span class="sub-title"
-            >Build Projects | Share Experiences | Reproduce Cases | Reply
-            Solutions</span
-          >
-          <span class="desc"
-            >The platform is full of vitality, where resesrchers can exchange
+          <span class="title">Welcome to Reproducible Geographic Simulation Reserach</span>
+          <span class="sub-title">Build Projects | Share Experiences | Reproduce Cases | Reply
+            Solutions</span>
+          <span class="desc">The platform is full of vitality, where resesrchers can exchange
             their views, collide their thoughts,<br />and establish their
-            geographic simulation reserach.</span
-          >
-          <el-button class="home-start-btn" @click="start"
-            >Try it now</el-button
-          >
+            geographic simulation reserach.</span>
+          <el-button
+            class="home-start-btn"
+            @click="start"
+          >Try it now</el-button>
         </div>
       </div>
     </div>
@@ -57,7 +53,10 @@
       <div class="cases">
         <span class="case-title">Demo and Popular Project</span>
         <el-row class="case-content">
-          <el-col class="case-item" :span="8">
+          <el-col
+            class="case-item"
+            :span="8"
+          >
             <div class="case-img img1"></div>
             <div class="mask">
               <div class="bg"></div>
@@ -67,7 +66,10 @@
               </div>
             </div>
           </el-col>
-          <el-col class="case-item" :span="8">
+          <el-col
+            class="case-item"
+            :span="8"
+          >
             <div class="case-img img2"></div>
             <div class="mask">
               <div class="bg"></div>
@@ -77,7 +79,10 @@
               </div>
             </div>
           </el-col>
-          <el-col class="case-item" :span="8">
+          <el-col
+            class="case-item"
+            :span="8"
+          >
             <div class="case-img img3"></div>
             <div class="mask">
               <div class="bg"></div>
@@ -92,43 +97,52 @@
 
       <div class="tools">
         <span class="tools-title">Explore More</span>
-        <el-row class="tools-container" type="flex" justify="space-around">
-          <el-col class="card" :span="4">
+        <el-row
+          class="tools-container"
+          type="flex"
+          justify="space-around"
+        >
+          <el-col
+            class="card"
+            :span="4"
+          >
             <span class="bg img-map"></span>
             <span class="card-title">Map</span>
-            <span class="card-desc"
-              >The fastest tools for visualizing geospatial data</span
-            >
+            <span class="card-desc">The fastest tools for visualizing geospatial data</span>
           </el-col>
-          <el-col class="card" :span="4">
+          <el-col
+            class="card"
+            :span="4"
+          >
             <span class="bg img-chart"></span>
             <span class="card-title">Chart</span>
-            <span class="card-desc"
-              >Give a deeper understanding of your table data</span
-            >
+            <span class="card-desc">Give a deeper understanding of your table data</span>
           </el-col>
 
-          <el-col class="card" :span="4">
+          <el-col
+            class="card"
+            :span="4"
+          >
             <span class="bg img-video"></span>
             <span class="card-title">Video</span>
-            <span class="card-desc"
-              >One-stop Video and Text Chat Tool for convenient
-              communication</span
-            >
+            <span class="card-desc">One-stop Video and Text Chat Tool for convenient
+              communication</span>
           </el-col>
-          <el-Col class="card" :span="4">
+          <el-Col
+            class="card"
+            :span="4"
+          >
             <span class="bg img-edit"></span>
             <span class="card-title">Edit</span>
-            <span class="card-desc"
-              >Deeply tapping the potential value of resources</span
-            >
+            <span class="card-desc">Deeply tapping the potential value of resources</span>
           </el-Col>
-          <el-col class="card" :span="4">
+          <el-col
+            class="card"
+            :span="4"
+          >
             <span class="bg img-todo"></span>
             <span class="card-title">TODO</span>
-            <span class="card-desc"
-              >Life goes on, needs to keep moving forward.</span
-            >
+            <span class="card-desc">Life goes on, needs to keep moving forward.</span>
           </el-col>
         </el-row>
       </div>
@@ -137,9 +151,6 @@
 </template>
 <script>
 export default {
-  data() {
-    return {};
-  },
   methods: {
     start() {
       this.$router.push({ name: "g2s_list" });

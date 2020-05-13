@@ -5,37 +5,55 @@
         v-if="cardData.type === 'model'"
         style="float:right; margin-top:-10px;"
       >
-        <i class="iconfont icon-model" color="#daa520" />
+        <i
+          class="iconfont icon-model"
+          color="#daa520"
+        />
         <span style="font-size:10px;color:#daa520">Model</span>
       </div>
       <div
         v-if="cardData.type === 'process'"
         style="float:right; margin-top:-10px;"
       >
-        <i class="iconfont icon-process" color="#d2691e" />
+        <i
+          class="iconfont icon-process"
+          color="#d2691e"
+        />
         <span style="font-size:10px;color:#d2691e">Data Process</span>
       </div>
       <div
         v-if="cardData.type === 'evaluation'"
         style="float:right; margin-top:-10px;"
       >
-        <i class="iconfont icon-dataanalysis" color="#d2691e" />
+        <i
+          class="iconfont icon-dataanalysis"
+          color="#d2691e"
+        />
         <span style="font-size:10px;color:#d2691e">Evaluation</span>
       </div>
       <div class="title">
-        <a href="#" @click.prevent="reTry(cardData)">{{ cardData.name }}</a>
+        <a
+          href="#"
+          @click.prevent="reTry(cardData)"
+        >{{ cardData.name }}</a>
       </div>
       <p class="cmpItemDesc">{{ cardData.description }}</p>
       <div id="bottom-info">
         <div class="info">
-          <i class="el-icon-user" :size="15" />
+          <i
+            class="el-icon-user"
+            :size="15"
+          />
           <span style="margin-left:10px; color:#2b85e4">{{
             cardData.creator ? cardData.creator : "sunlingzhi"
           }}</span>
         </div>
 
         <div class="info">
-          <i class="el-icon-alarm-clock" :size="15" />
+          <i
+            class="el-icon-alarm-clock"
+            :size="15"
+          />
           <span style="margin-left:10px">{{ cardData.createTime }}</span>
         </div>
       </div>
@@ -44,6 +62,7 @@
 </template>
 
 <script>
+import config from "@/config";
 export default {
   props: {
     cardData: {
@@ -52,9 +71,16 @@ export default {
   },
   methods: {
     reTry({ type, id, serviceId }) {
-      this.$router.push({
-        path: `/resource/${serviceId}/${type}/invoke?instanceId=${id}`
-      });
+      if (type === "evaluation") {
+        window.open(
+          `${config.tomcatURL}/evaluation/#/gist/${serviceId}`,
+          "_blank"
+        );
+      } else {
+        this.$router.push({
+          path: `/resource/${serviceId}/${type}/invoke?instanceId=${id}`
+        });
+      }
     }
   }
 };

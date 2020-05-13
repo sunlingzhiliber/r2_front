@@ -117,7 +117,6 @@
                           <el-table-column
                             fixed="right"
                             label="operation"
-                            width="120"
                           >
                             <template slot-scope="scope">
                               <el-button
@@ -160,7 +159,6 @@
                           <el-table-column
                             fixed="right"
                             label="operation"
-                            width="120"
                           >
                             <template slot-scope="scope">
                               <el-button
@@ -216,7 +214,6 @@
                           <el-table-column
                             fixed="right"
                             label="operation"
-                            width="120"
                           >
                             <template slot-scope="scope">
                               <el-button
@@ -372,7 +369,7 @@ export default {
       this.g2s.evaluation.forEach(
         ({ id, name, description, createTime, creator }) => {
           let inner = {
-            id,
+            serviceId: id,
             name,
             description,
             createTime,

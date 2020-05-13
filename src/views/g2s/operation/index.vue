@@ -109,16 +109,65 @@
       title="模拟验证"
       :visible.sync="evaluationVisible"
     >
-      <el-tabs
-        v-model="avtiveTab"
-        @tab-click="handleTabClick"
-      >
+      <el-tabs v-model="avtiveTab">
         <el-tab-pane
           label="管理"
           name="manage"
-        >{{
-          evaluationServices
-        }}</el-tab-pane>
+        >
+          <el-table
+            :data="evaluationServices"
+            style="width: 100%"
+          >
+            <el-table-column
+              prop="name"
+              label="Name"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="createTime"
+              label="CreateTime"
+              width="180"
+            >
+            </el-table-column>
+            <el-table-column
+              prop="description"
+              label="description"
+            >
+            </el-table-column>
+            <el-table-column
+              fixed="right"
+              label="operation"
+            >
+              <template slot-scope="scope">
+                <el-button
+                  @click="view(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  view
+                </el-button>
+                <el-button
+                  @click="edit(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  edit
+                </el-button>
+
+                <el-button
+                  @click="remove(scope.row)"
+                  type="text"
+                  size="small"
+                >
+                  remove
+                </el-button>
+
+              </template>
+            </el-table-column>
+          </el-table>
+
+        </el-tab-pane>
         <el-tab-pane
           label="创建"
           name="create"
@@ -207,15 +256,16 @@
 
 <script>
 import config from "@/config";
-import { get, put, post } from "@/axios";
+import { get, put, post, del } from "@/axios";
 import echarts from "echarts";
+import { mapState } from "vuex";
 export default {
   data() {
     return {
       id: this.$route.params.id,
       g2s: {},
       active: 0,
-      avtiveTab: 0,
+      avtiveTab: "manage",
       resourceCollect: {},
       resourceCollectVisible: false,
       evaluationVisible: false,
@@ -246,7 +296,28 @@ export default {
       choosenDataServices: []
     };
   },
+  computed: {
+    ...mapState(["user"])
+  },
   methods: {
+    view({ id }) {
+      window.open(`${config.tomcatURL}/evaluation/#/gist/${id}`, "_blank");
+    },
+    edit({ id }) {
+      window.open(
+        `${config.tomcatURL}/evaluation/#/gist/${id}?name=${this.user.name}&token=${this.user.token}`,
+        "_blank"
+      );
+    },
+    async remove(row) {
+      console.log(row);
+      let evaluationId = row.id;
+      await del("/g2s/{id}/evaluationService/{evaluationId}", null, {
+        id: this.id,
+        evaluationId
+      });
+      this.getEvaluationServices();
+    },
     initEchart() {
       let option = {
         animationDurationUpdate: 500,
@@ -444,11 +515,6 @@ export default {
         });
       }
     },
-    async handleTabClick({ name }) {
-      if (name == 0) {
-        this.getEvaluationServices();
-      }
-    },
     async publish() {
       this.g2s = await put(
         "/g2s/{id}",
@@ -475,6 +541,7 @@ export default {
       this.evaluationService.behavior = {
         inputs
       };
+      this.evaluationService.creator = this.user.name;
       let serviceId = await post(
         "/g2s/{id}/evaluationService",
         this.evaluationService,
@@ -485,7 +552,7 @@ export default {
       this.getEvaluationServices();
       this.resourceCollectVisible = false;
       window.open(
-        `${config.tomcatURL}/evaluation/#/gist/${serviceId}`,
+        `${config.tomcatURL}/evaluation/#/gist/${serviceId}?name=${this.user.name}&token=${this.user.token}`,
         "_blank"
       );
     },
