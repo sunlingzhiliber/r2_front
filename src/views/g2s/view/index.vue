@@ -285,7 +285,7 @@
                     ></el-button>
                     <workflow
                       id="fullScreenComponent"
-                      :g2sId="this.id"
+                      :expectedInstances="g2s.computation.serviceInstances"
                     ></workflow>
                   </el-tab-pane>
                 </el-tabs>

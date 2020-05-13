@@ -13,10 +13,9 @@
 </template>
 
 <script>
-import { get } from "@/axios";
 import VueBlocksContainer from "_com/vue-blocks/components/observe/VueBlocksContainer";
 export default {
-  props: ["g2sId"],
+  props: ["expectedInstances"],
   components: {
     VueBlocksContainer
   },
@@ -29,7 +28,11 @@ export default {
       selectedBlock: null
     };
   },
-  computed: {},
+  watch: {
+    expectedInstances() {
+      this.init();
+    }
+  },
   methods: {
     seeDetail() {
       let { id, instanceEnum, serviceId } = this.selectedBlock;
@@ -44,9 +47,7 @@ export default {
       }
     },
     async init() {
-      let getExpectedInstances = await get(
-        `/g2s/${this.g2sId}/getExpectedInstances`
-      );
+      let getExpectedInstances = this.expectedInstances;
       this.blocks = [];
       let realBlocks = [];
       let realLinks = [];
@@ -123,9 +124,6 @@ export default {
     deselectBlock() {
       this.selectedBlock = null;
     }
-  },
-  mounted() {
-    this.init();
   }
 };
 </script>
