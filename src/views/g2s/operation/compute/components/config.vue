@@ -5,18 +5,24 @@
         <i class="el-icon-setting"></i>
         {{ service.name }}
       </el-col>
-      <el-col :span="4" :offset="8">
-        <el-button class="btn" plain type="primary" @click="showDialogInvoke()">
-          invoke</el-button
+      <el-col
+        :span="4"
+        :offset="8"
+      >
+        <el-button
+          class="btn"
+          plain
+          type="primary"
+          @click="showDialogInvoke()"
         >
+          invoke</el-button>
         <el-button
           class="btn"
           plain
           type="primary"
           @click="showDialogInstances()"
         >
-          instances</el-button
-        >
+          instances</el-button>
       </el-col>
     </el-row>
 
@@ -38,11 +44,15 @@
             <el-row>
               <el-col :span="16">
                 <span class="event-name">
-                  <span v-show="!input.isOptional" style="color:red">*</span
-                  >{{ input.name }}</span
-                >
+                  <span
+                    v-show="!input.isOptional"
+                    style="color:red"
+                  >*</span>{{ input.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
+              <el-col
+                :span="3"
+                :offset="2"
+              >
                 <el-select
                   v-model="input.dataServiceId"
                   placeholder="请绑定对应的数据服务"
@@ -82,7 +92,10 @@
         </div>
       </div>
 
-      <div class="group" v-show="service.behavior.parameters">
+      <div
+        class="group"
+        v-show="service.behavior.parameters"
+      >
         <el-row class="title">params</el-row>
         <div class="items">
           <el-row
@@ -94,7 +107,10 @@
               <el-col :span="16">
                 <span class="event-name"> {{ parameter.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
+              <el-col
+                :span="3"
+                :offset="2"
+              >
                 <el-tooltip
                   :content="parameter.tooltip"
                   placement="top"
@@ -124,7 +140,10 @@
               <el-col :span="16">
                 <span class="event-name"> {{ output.name }}</span>
               </el-col>
-              <el-col :span="3" :offset="2">
+              <el-col
+                :span="3"
+                :offset="2"
+              >
                 <div>
                   null
                 </div>
@@ -136,18 +155,36 @@
       </div>
     </el-row>
 
-    <el-dialog title="运行实例" :visible.sync="dialogInvokeVisible">
-      <el-input v-model="instanceName" autocomplete="off">
-        <template slot="prepend">运行实例名称:</template></el-input
+    <el-dialog
+      title="运行实例"
+      :visible.sync="dialogInvokeVisible"
+    >
+      <el-input
+        v-model="instanceName"
+        autocomplete="off"
       >
-      <span slot="footer" class="dialog-footer">
+        <template slot="prepend">运行实例名称:</template></el-input>
+      <span
+        slot="footer"
+        class="dialog-footer"
+      >
         <el-button @click="dialogInvokeVisible = false">取 消</el-button>
-        <el-button type="primary" @click="invoke()">Invoke</el-button>
+        <el-button
+          type="primary"
+          @click="invoke()"
+        >Invoke</el-button>
       </span>
     </el-dialog>
 
-    <el-dialog title="实例集合" :visible.sync="dialogInstancesVisible">
-      <el-table :data="instancesData" stripe style="width: 100%">
+    <el-dialog
+      title="实例集合"
+      :visible.sync="dialogInstancesVisible"
+    >
+      <el-table
+        :data="instancesData"
+        stripe
+        style="width: 100%"
+      >
         <el-table-column type="expand">
           <template slot-scope="props">
             <h1>Model Configuration</h1>
@@ -156,7 +193,11 @@
           </template>
         </el-table-column>
 
-        <el-table-column prop="name" label="name" width="150"></el-table-column>
+        <el-table-column
+          prop="name"
+          label="name"
+          width="150"
+        ></el-table-column>
         <el-table-column
           prop="createTime"
           label="createTime"
@@ -177,15 +218,16 @@
             <el-tag
               :type="statusEnumTag(scope.row.statusEnum)"
               disable-transitions
-              >{{ scope.row.statusEnum }}</el-tag
-            >
+            >{{ scope.row.statusEnum }}</el-tag>
           </template>
         </el-table-column>
         <el-table-column label="操作">
           <template slot-scope="scope">
-            <el-button size="small" round @click="handleBind(scope.row)"
-              >Bind</el-button
-            >
+            <el-button
+              size="small"
+              round
+              @click="handleBind(scope.row)"
+            >Bind</el-button>
           </template>
         </el-table-column>
       </el-table>
@@ -264,6 +306,7 @@ export default {
       );
     },
     async invoke() {
+      this.service.details = null;
       await post(
         "/g2s/{id}/invoke",
         {

@@ -5,14 +5,22 @@
  * requireAuth:(true)
  * }
  */
-export default [
-  {
+export default [{
     path: "*",
     name: "error_404",
     meta: {
       title: "404-页面不存在"
     },
     component: () => import("@/views/error-page/404.vue")
+  },
+
+  {
+    path: "/test/mavon",
+    name: "mavon",
+    meta: {
+      title: "r2 | mavon"
+    },
+    component: () => import("@/views/test/mavon")
   },
 
   {
@@ -27,8 +35,7 @@ export default [
     path: "/",
     redirect: "/home",
     component: () => import("_com/layout/NormalLayout.vue"),
-    children: [
-      {
+    children: [{
         path: "/home",
         name: "home",
         meta: {

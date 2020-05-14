@@ -1,5 +1,8 @@
 <template>
-  <div class="main" v-loading="loading">
+  <div
+    class="main"
+    v-loading="loading"
+  >
     <div class="slider scrollbar">
       <div class="image">
         <img
@@ -12,7 +15,12 @@
       <h3 class="desc">简介</h3>
       <p>{{ service.description }}</p>
       <el-row>
-        <el-button plain round type="primary" @click="invoke">Invoke</el-button>
+        <el-button
+          plain
+          round
+          type="primary"
+          @click="invoke"
+        >Invoke</el-button>
       </el-row>
     </div>
 
@@ -51,6 +59,8 @@ export default {
   methods: {
     async invoke() {
       this.loading = true;
+      //instance里面不需要这个字段
+      this.service.details = null;
       let instance = await post(
         "/instance/invoke",
         {

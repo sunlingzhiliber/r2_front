@@ -196,7 +196,7 @@
                 default-first-option
               ></el-select>
               <br />
-              resourceUrl:<el-input v-model="evaluationService.resourceUrl"></el-input>
+
             </div>
 
             <div v-show="active == 1">

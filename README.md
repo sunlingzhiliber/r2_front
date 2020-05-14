@@ -38,3 +38,19 @@ npm run lint
 
 - 1.目前的数据服务下载是直接挂靠的容器的下载接口，并没有从复现研究平台进行转发
 - 2.服务的枚举 注意数据处理服务的 简称是PROCESS
+
+## 模拟验证服务
+
+获取数据的参考模板
+
+```javascript
+var dataUrl="http://localhost:8081/data_service/fetch/5eb12f37a6e62808b4922837";
+(async () => {
+        try {
+            let res = await fetch(dataUrl);
+            let text = await res.text();
+        } catch (e) {
+            console.log(e);
+        }
+})();
+```

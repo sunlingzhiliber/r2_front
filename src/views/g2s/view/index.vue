@@ -461,8 +461,8 @@ export default {
         let graph = new mxGraph(container);
         graph.setEnabled(false);
 
-        graph.getModel().beginUpdate();
         try {
+          graph.getModel().beginUpdate();
           let xmlData = this.g2s.simulationConceptGraph.xmlGraph;
           let xmlDoc = mxUtils.parseXml(xmlData);
           let codec = new mxCodec(xmlDoc);

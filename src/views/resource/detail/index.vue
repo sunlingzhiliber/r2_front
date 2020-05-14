@@ -6,16 +6,23 @@
         <el-col :span="19">
           <span class="service-name">
             {{ service.name }}
-          </span></el-col
+          </span></el-col>
+        <el-col
+          :span="4"
+          :offset="1"
         >
-        <el-col :span="4" :offset="1">
-          <el-button style="margin-top: 5px;" @click="invoke()"
-            >Invoke</el-button
-          >
+          <el-button
+            style="margin-top: 5px;"
+            @click="invoke()"
+          >Invoke</el-button>
         </el-col>
       </el-row>
       <el-row>
-        <span v-for="(tag, index) of service.tags" :key="index" class="badge">{{
+        <span
+          v-for="(tag, index) of service.tags"
+          :key="index"
+          class="badge"
+        >{{
           tag
         }}</span>
       </el-row>
@@ -37,8 +44,7 @@
                     ? service.resourceUrl
                     : 'http://geomodeling.njnu.edu.cn/'
                 "
-                >Learn More</a
-              >
+              >Learn More</a>
             </span>
           </span>
         </el-row>
@@ -46,7 +52,17 @@
       <el-row class="abstract">
         <span class="label">Details</span>
         <el-row>
-          <div class="info" v-html="service.details"></div>
+          <!-- <div
+            class="info"
+            v-html="service.details"
+          ></div> -->
+          <mavon-editor
+            v-model="service.details"
+            :editable="false"
+            :defaultOpen="'preview'"
+            :toolbarsFlag="false"
+            :subfield="false"
+          ></mavon-editor>
         </el-row>
       </el-row>
     </el-row>
@@ -56,7 +72,8 @@
 <script>
 import { get } from "@/axios";
 import Banner from "_com/common/Banner";
-
+import { mavonEditor } from "mavon-editor";
+import "mavon-editor/dist/css/index.css";
 export default {
   data() {
     return {
@@ -94,7 +111,8 @@ export default {
     this.getData();
   },
   components: {
-    Banner
+    Banner,
+    mavonEditor
   }
 };
 </script>
