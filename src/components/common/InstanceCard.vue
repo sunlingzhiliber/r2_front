@@ -45,7 +45,7 @@
             :size="15"
           />
           <span style="margin-left:10px; color:#2b85e4">{{
-            cardData.creator ? cardData.creator : "sunlingzhi"
+            cardData.creator ? cardData.creator : "OpenGMS"
           }}</span>
         </div>
 

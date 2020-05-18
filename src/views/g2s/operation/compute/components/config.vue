@@ -313,7 +313,8 @@ export default {
           name: this.instanceName,
           statusEnum: "READY",
           instanceEnum: this.type,
-          service: this.service
+          service: this.service,
+          creator:this.$store.state.user.name
         },
         {
           id: this.id

@@ -89,7 +89,8 @@ export default [{
         path: "/g2s/:id/view",
         name: "g2s_view",
         meta: {
-          title: "r2 | view"
+          title: "r2 | view",
+          requireAuth: true
         },
         components: {
           header: () => import("_com/layout/MyHeader.vue"),

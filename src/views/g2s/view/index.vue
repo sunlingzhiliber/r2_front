@@ -3,7 +3,7 @@
     <div style="position:relative">
       <h1 class="title">{{ this.g2s.name }}</h1>
       <el-button
-        @click="folk()"
+        @click="folkVisible=true"
         style="position:absolute; right:65px;top:0px;"
         type="info"
         circle
@@ -62,11 +62,13 @@
                     title="Context Define"
                     name="1"
                   >
-                    <el-tabs v-model="activeContext">
+                    <el-tabs
+                      v-model="activeContext"
+                      v-if="g2s.contextDefine"
+                    >
                       <el-tab-pane
                         label="Theme"
                         name="theme"
-                        v-if="g2s.contextDefine"
                       >
                         {{ g2s.contextDefine.theme }}
                       </el-tab-pane>
@@ -244,10 +246,13 @@
 
               <el-card>
                 <h1>Simulation Concept Graph</h1>
-                <div
-                  style="width:90%;margin-top:20px;padding:15px;background-color:#f8f8f9"
-                  ref="mx"
-                ></div>
+                <div style="margin-top:20px;padding:15px;background-color:#f8f8f9">
+                  <el-image
+                    v-if="this.g2s.simulationConceptGraph.imgGraph!=null"
+                    :src="'/api/'+this.g2s.simulationConceptGraph.imgGraph"
+                    fit="fill"
+                  ></el-image>
+                </div>
               </el-card>
 
               <el-card>
@@ -295,20 +300,67 @@
         </el-row>
       </el-col>
     </el-row>
+
+    <el-dialog
+      title="Folk Geographic Simulation"
+      :visible.sync="folkVisible"
+    >
+      <el-form :model="g2s_folk">
+        <el-form-item label="Name">
+          <el-input
+            v-model="g2s_folk.name"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Description">
+          <el-input
+            type="textarea"
+            :rows="2"
+            v-model="g2s_folk.description"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Background">
+          <el-input
+            type="textarea"
+            :rows="2"
+            v-model="g2s_folk.background"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+        <el-form-item label="Goals">
+          <el-input
+            type="textarea"
+            :rows="2"
+            v-model="g2s_folk.goals"
+            autocomplete="off"
+          ></el-input>
+        </el-form-item>
+      </el-form>
+      <div
+        slot="footer"
+        class="dialog-footer"
+      >
+        <el-button
+          type="primary"
+          @click="folk()"
+        >Create</el-button>
+      </div>
+    </el-dialog>
   </div>
 </template>
 
 <script>
-import mxgraph from "@/lib/mx/index.js";
 import workflow from "./components/workflow";
-const { mxGraph, mxClient, mxCodec, mxUtils } = mxgraph;
-import { get } from "@/axios";
+import { get, post } from "@/axios";
 import InstanceCard from "_com/common/InstanceCard";
 import config from "@/config";
 export default {
   data() {
     return {
       id: this.$route.params.id,
+      folkVisible: false,
+      g2s_folk: {},
       g2s: {
         contextDefine: {
           theme: {},
@@ -319,6 +371,9 @@ export default {
           dataServices: [],
           modelServices: [],
           dataProcessServices: []
+        },
+        simulationConceptGraph: {
+          imgGraph: null
         },
         computation: {
           serviceInstances: []
@@ -447,31 +502,11 @@ export default {
       element.requestFullscreen();
       this.fullscreenFlag = true;
     },
-    folk() {
-      console.log("todo" + this.g2s.id);
-    },
-    initMxgraph() {
-      if (!mxClient.isBrowserSupported()) {
-        // 判断是否支持mxgraph
-        mxUtils.error("Browser is not supported!", 200, false);
-      } else {
-        // 再容器中创建图表
-        let container = this.$refs.mx;
-
-        let graph = new mxGraph(container);
-        graph.setEnabled(false);
-
-        try {
-          graph.getModel().beginUpdate();
-          let xmlData = this.g2s.simulationConceptGraph.xmlGraph;
-          let xmlDoc = mxUtils.parseXml(xmlData);
-          let codec = new mxCodec(xmlDoc);
-          codec.decode(xmlDoc.documentElement, graph.getModel());
-        } finally {
-          // Updates the display
-          graph.getModel().endUpdate();
-        }
-      }
+    async folk() {
+      this.g2s_folk.creator = this.$store.state.user.name;
+      let { id } = await post(`/g2s/${this.id}/folk`, this.g2s_folk);
+      this.$router.push({ path: `/g2s/${id}` });
+      this.folkVisible = false;
     }
   },
   created() {
@@ -485,7 +520,6 @@ export default {
     this.g2s = await get("/g2s/{id}/view", null, {
       id: this.id
     });
-    this.initMxgraph();
   },
   components: {
     workflow,

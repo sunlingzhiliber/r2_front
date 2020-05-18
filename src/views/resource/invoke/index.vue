@@ -67,7 +67,8 @@ export default {
           name: this.service.name + "_" + new Date().toLocaleString(),
           statusEnum: "READY",
           instanceEnum: this.type === "model" ? "MODEL" : "PROCESS",
-          service: this.service
+          service: this.service,
+          creator: this.$store.state.user.name
         },
         null,
         false
