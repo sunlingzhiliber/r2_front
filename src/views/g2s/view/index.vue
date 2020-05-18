@@ -226,6 +226,7 @@
                   <h1>Simulation Concept Graph</h1>
                   <div style="margin-top:20px;padding:15px;background-color:#f8f8f9">
                     <el-image
+                      v-if="g2s.simulationConceptGraph.imgGraph!=null"
                       :src="'/api/'+g2s.simulationConceptGraph.imgGraph"
                       fit="fit"
                     ></el-image>
