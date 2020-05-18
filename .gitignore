@@ -19,3 +19,7 @@ yarn-error.log*
 *.njsproj
 *.sln
 *.sw?
+
+#自定义不上传到GITHUB
+/vue.config.js
+/src/config.js
