@@ -1,7 +1,7 @@
 <template>
   <div class="mainContent">
     <div style="position:relative">
-      <h1 class="title">{{ this.g2s.name }}</h1>
+        <h1 class="title" :title="this.g2s.name">{{ this.g2s.name }}</h1>
       <el-button
         @click="folkVisible=true"
         style="position:absolute; right:65px;top:0px;"
@@ -11,10 +11,7 @@
       ></el-button>
     </div>
     <el-row>
-      <el-col
-        :span="22"
-        :offset="1"
-      >
+      <el-col :span="22" :offset="1">
         <el-row>
           <el-col :span="5">
             <el-card class="leftContent">
@@ -35,41 +32,23 @@
               </div>
 
               <el-collapse v-model="activeNamesLeft">
-                <el-collapse-item
-                  title="goals"
-                  name="1"
-                >
+                <el-collapse-item title="goals" name="1">
                   <div>{{ g2s.goals }}</div>
                 </el-collapse-item>
-                <el-collapse-item
-                  title="background"
-                  name="2"
-                >
+                <el-collapse-item title="background" name="2">
                   <div>{{ g2s.background }}</div>
                 </el-collapse-item>
               </el-collapse>
             </el-card>
           </el-col>
-          <el-col
-            :span="18"
-            :offset="1"
-          >
+          <el-col :span="18" :offset="1">
             <div class="rightContent">
               <el-row class="rightContentCard">
                 <el-card>
                   <el-collapse v-model="activeNamesRight">
-                    <el-collapse-item
-                      title="Context Definition"
-                      name="1"
-                    >
-                      <el-tabs
-                        v-model="activeContext"
-                        v-if="g2s.contextDefine"
-                      >
-                        <el-tab-pane
-                          label="Theme"
-                          name="theme"
-                        >{{ g2s.contextDefine.theme }}</el-tab-pane>
+                    <el-collapse-item title="Context Definition" name="1">
+                      <el-tabs v-model="activeContext" v-if="g2s.contextDefine">
+                        <el-tab-pane label="Theme" name="theme">{{ g2s.contextDefine.theme }}</el-tab-pane>
                         <el-tab-pane
                           label="Geographic Object"
                           name="object"
@@ -80,39 +59,14 @@
                         >{{ g2s.contextDefine.boundary }}</el-tab-pane>
                       </el-tabs>
                     </el-collapse-item>
-                    <el-collapse-item
-                      title="Resource Collection"
-                      name="2"
-                    >
+                    <el-collapse-item title="Resource Collection" name="2">
                       <el-tabs v-model="activeResource">
-                        <el-tab-pane
-                          label="Data Services"
-                          name="data"
-                        >
-                          <el-table
-                            :data="dataTable"
-                            style="width: 100%"
-                          >
-                            <el-table-column
-                              prop="name"
-                              label="Name"
-                              width="200"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="createTime"
-                              label="CreateTime"
-                              width="200"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="description"
-                              label="description"
-                              width="340"
-                            ></el-table-column>
-                            <el-table-column
-                              fixed="right"
-                              label="operation"
-                              width="200"
-                            >
+                        <el-tab-pane label="Data Services" name="data">
+                          <el-table :data="dataTable" style="width: 100%">
+                            <el-table-column prop="name" label="Name" width="200"></el-table-column>
+                            <el-table-column prop="createTime" label="CreateTime" width="200"></el-table-column>
+                            <el-table-column prop="description" label="description" width="340"></el-table-column>
+                            <el-table-column fixed="right" label="operation">
                               <template slot-scope="scope">
                                 <el-button
                                   @click.native.prevent="download(scope.row)"
@@ -124,32 +78,12 @@
                           </el-table>
                         </el-tab-pane>
 
-                        <el-tab-pane
-                          label="Data Process Services"
-                          name="process"
-                        >
-                          <el-table
-                            :data="dataProcessTable"
-                            style="width: 100%"
-                          >
-                            <el-table-column
-                              prop="name"
-                              label="Name"
-                              width="180"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="createTime"
-                              label="CreateTime"
-                              width="180"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="description"
-                              label="description"
-                            ></el-table-column>
-                            <el-table-column
-                              fixed="right"
-                              label="operation"
-                            >
+                        <el-tab-pane label="Data Process Services" name="process">
+                          <el-table :data="dataProcessTable" style="width: 100%">
+                            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+                            <el-table-column prop="createTime" label="CreateTime" width="180"></el-table-column>
+                            <el-table-column prop="description" label="description"></el-table-column>
+                            <el-table-column fixed="right" label="operation">
                               <template slot-scope="scope">
                                 <el-button
                                   @click.native.prevent="
@@ -171,33 +105,13 @@
                           </el-table>
                         </el-tab-pane>
 
-                        <el-tab-pane
-                          label="Model Services"
-                          name="model"
-                        >
-                          <el-table
-                            :data="modelTable"
-                            style="width: 100%"
-                          >
-                            <el-table-column
-                              prop="name"
-                              label="Name"
-                              width="180"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="createTime"
-                              label="CreateTime"
-                              width="180"
-                            ></el-table-column>
-                            <el-table-column
-                              prop="description"
-                              label="description"
-                            ></el-table-column>
+                        <el-tab-pane label="Model Services" name="model">
+                          <el-table :data="modelTable" style="width: 100%">
+                            <el-table-column prop="name" label="Name" width="180"></el-table-column>
+                            <el-table-column prop="createTime" label="CreateTime" width="180"></el-table-column>
+                            <el-table-column prop="description" label="description"></el-table-column>
 
-                            <el-table-column
-                              fixed="right"
-                              label="operation"
-                            >
+                            <el-table-column fixed="right" label="operation">
                               <template slot-scope="scope">
                                 <el-button
                                   @click.native.prevent="view(scope.row, 'model')"
@@ -226,6 +140,7 @@
                   <h1>Simulation Concept Graph</h1>
                   <div style="margin-top:20px;padding:15px;background-color:#f8f8f9">
                     <el-image
+                      v-if="g2s.simulationConceptGraph.imgGraph!=null"
                       :src="'/api/'+g2s.simulationConceptGraph.imgGraph"
                       fit="fit"
                     ></el-image>
@@ -234,14 +149,8 @@
               </el-row>
               <el-row class="rightContentCard">
                 <el-card>
-                  <el-tabs
-                    v-model="activeExpected"
-                    class="instanceCard"
-                  >
-                    <el-tab-pane
-                      label="Service Instances"
-                      name="instance"
-                    >
+                  <el-tabs v-model="activeExpected" class="instanceCard">
+                    <el-tab-pane label="Service Instances" name="instance">
                       <el-col
                         :span="7"
                         :offset="1"
@@ -252,26 +161,19 @@
                       </el-col>
                     </el-tab-pane>
 
-                    <el-tab-pane
-                      label="Evaluation"
-                      name="evaluation"
-                    >
-                      <InstanceCard
+                    <el-tab-pane label="Evaluation" name="evaluation">
+                      <el-col
+                        :span="7"
+                        :offset="1"
                         v-for="(evaluation, index) in evaluationCard"
                         :key="index"
-                        :cardData="evaluation"
-                      ></InstanceCard>
+                      >
+                        <InstanceCard :cardData="evaluation"></InstanceCard>
+                      </el-col>
                     </el-tab-pane>
 
-                    <el-tab-pane
-                      label="Workflow"
-                      name="workflow"
-                    >
-                      <el-button
-                        @click="fullScreen"
-                        icon="el-icon-full-screen"
-                        primary
-                      ></el-button>
+                    <el-tab-pane label="Workflow" name="workflow">
+                      <el-button @click="fullScreen" icon="el-icon-full-screen" primary></el-button>
                       <workflow
                         id="fullScreenComponent"
                         :expectedInstances="g2s.computation.serviceInstances"
@@ -286,50 +188,23 @@
       </el-col>
     </el-row>
 
-    <el-dialog
-      title="Folk Geographic Simulation"
-      :visible.sync="folkVisible"
-    >
+    <el-dialog title="Folk Geographic Simulation" :visible.sync="folkVisible">
       <el-form :model="g2s_folk">
         <el-form-item label="Name">
-          <el-input
-            v-model="g2s_folk.name"
-            autocomplete="off"
-          ></el-input>
+          <el-input v-model="g2s_folk.name" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Description">
-          <el-input
-            type="textarea"
-            :rows="2"
-            v-model="g2s_folk.description"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="textarea" :rows="2" v-model="g2s_folk.description" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Background">
-          <el-input
-            type="textarea"
-            :rows="2"
-            v-model="g2s_folk.background"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="textarea" :rows="2" v-model="g2s_folk.background" autocomplete="off"></el-input>
         </el-form-item>
         <el-form-item label="Goals">
-          <el-input
-            type="textarea"
-            :rows="2"
-            v-model="g2s_folk.goals"
-            autocomplete="off"
-          ></el-input>
+          <el-input type="textarea" :rows="2" v-model="g2s_folk.goals" autocomplete="off"></el-input>
         </el-form-item>
       </el-form>
-      <div
-        slot="footer"
-        class="dialog-footer"
-      >
-        <el-button
-          type="primary"
-          @click="folk()"
-        >Create</el-button>
+      <div slot="footer" class="dialog-footer">
+        <el-button type="primary" @click="folk()">Create</el-button>
       </div>
     </el-dialog>
   </div>
@@ -573,9 +448,7 @@ export default {
 .rightContentCard {
   margin-bottom: 20px;
 }
-.rightContent /deep/ .el-tabs__content {
-  padding: 0 25px;
-}
+
 .instanceCard /deep/ .el-card:hover {
   background-color: #f2f6fc;
 }
