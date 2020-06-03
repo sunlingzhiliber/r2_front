@@ -50,7 +50,6 @@ export default {
     max-height: 115px;
     .title,
     .desc {
-      max-height: 44px;
       display: -webkit-box;
       -webkit-box-orient: vertical;
       -webkit-line-clamp: 2;

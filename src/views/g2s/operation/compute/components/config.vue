@@ -271,6 +271,8 @@ export default {
         type: "success"
       });
       this.dialogInstancesVisible = false;
+      this.$emit('refreshData');
+
     },
     statusEnumTag(status) {
       if (status === "FINISH") {

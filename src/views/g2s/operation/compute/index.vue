@@ -4,7 +4,10 @@
       <el-col :span="6">
         <el-row>
           <h1>模型列表</h1>
-          <div class="infinite-list-wrapper" style="overflow:auto">
+          <div
+            class="infinite-list-wrapper"
+            style="overflow:auto"
+          >
             <ul class="list">
               <li
                 v-for="modelservice in modelServices"
@@ -21,7 +24,10 @@
 
         <el-row>
           <h1>数据处理列表</h1>
-          <div class="infinite-list-wrapper" style="overflow:auto">
+          <div
+            class="infinite-list-wrapper"
+            style="overflow:auto"
+          >
             <ul class="list">
               <li
                 v-for="dataProcessService in dataProcessServices"
@@ -36,9 +42,13 @@
           </div>
         </el-row>
       </el-col>
-      <el-col :span="18" v-if="choosenService != null">
+      <el-col
+        :span="18"
+        v-if="choosenService != null"
+      >
         <config
           :service="choosenService"
+          @refreshData="refreshData"
           :type="choosenServiceType"
           :dataServices="dataServices"
         ></config>
@@ -100,6 +110,10 @@ export default {
       this.dataProcessServices = dataProcessServices;
       this.choosenService = this.modelServices[0];
       this.choosenServiceType = "MODEL";
+      this.getDataServices();
+    },
+    refreshData() {
+
       this.getDataServices();
     },
     show(choosen, type) {

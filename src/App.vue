@@ -102,12 +102,12 @@ body {
     not supported by any browser */
 }
 body {
-  background-image: radial-gradient(
+  /* background-image: radial-gradient(
       farthest-corner at 120px 420px,
       #fff,
       rgba(255, 255, 255, 0.5)
     ),
-    url("./assets/topo.svg");
+    url("./assets/topo.svg"); */
   background-repeat: no-repeat;
   background-size: 100%, 1500px;
   width: 100%;
